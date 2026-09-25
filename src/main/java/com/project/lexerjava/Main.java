@@ -1,28 +1,63 @@
 package com.project.lexerjava;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+// JavaFX ki har application (jo hum banate hain) Application class ko extend krti hai. Isme aik abstract method hota hai jisko implement krna zaruri hota hai --> wo method hai 'start()'
 
-import java.io.IOException;
+// start method 1 argument leta hai jiski type 'Stage' hoti hai or Exception/IOException throw krta hai
+
 
 public class Main extends Application {
 
-    @Override
-    public void start(Stage stage) throws IOException {
-
-        FXMLLoader fxmlLoader =
-                new FXMLLoader(Main.class.getResource("hello-view.fxml"));
-
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+    public static void main(String[] args) {
+//            start method ko behind the scenes call krne ke liye hum 'launch' method use krte hain, jisme hum 'args' pass krdete hain main method wali. --> launch method static hota hai but hum 'Application.launch' bhi likh sakte hain
+        launch(args);
     }
 
-    public static void main(String[] args) {
-        launch(args);
+//    First step --> Stage create krna. Ye humein already milti hai start ki argument mein. 'Stage stage'
+    @Override
+    public void start(Stage stage) throws Exception{
+
+        Group root = new Group(); // root nodes bohat types ke hote, mein group use krrha hun (sbse common or easy).
+
+        //        Hum stage dikhane ke liye stage.show method use krte hain, lekin bina scene ke stage theek se behave nahin krti resizing pe. Iske liye pehle 'Scene scene = new Scene' se object create hoga
+
+        Scene scene = new Scene(root, //600,//600,
+                 Color.LIGHTCYAN); // Iske constructor ko parent/root node chahiye hota hai. To upar wo bhi bana na hoga. Isme color bhi pass krskte scene ka. Isme bhi width or height bata sakte hain stage ki. --> Scene Builder ki waja se comment out krdi taake aik hi jaga se set ho.
+
+
+
+        stage.setTitle("lexer-java"); // Title set krne ke liye
+
+//        Icons set krne ke liye image resources folder mein honi chahiye --> then uska object banta hai then wo add hoti hai. Iska code niche given hai
+
+        Image icon = new Image("lexer-icon.jpg");
+        stage.getIcons().add(icon);
+
+
+//        Width or Height bhi set krni hoti stage ki (mene already constructor mein ki hui hai), or ye bhi ke resizeable hai ya nahin.
+//        stage.setWidth(420);
+//        stage.setHeight(420);
+        stage.setResizable(false);
+
+//        By default fullscreen mein khulei, or fullscreen se exit hone ke liya kya krna parta wo bhi define krsakte hain.
+
+        stage.setFullScreen(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.valueOf("ESC"));
+        stage.setFullScreenExitHint("Press ESCAPE to exit fullscreen");
+
+//        Apne screen pe kahan open hogi uske x or y bhi set krskte but by default center mein hi khulegi.
+
+        stage.setScene(scene); // Jo scene banaya hai usko stage pe bhi to dalna hoga.
+        stage.show();
+
+        // Stage --> Scene --> Scene Graph (root)
+
+//        Scenes basically drawing surface hote graphical content ke liye to hum kaafi saari chizein like text, lines, images wagera add krskte by using "root.getChildren().add("text") etc. ", or methods ke through unki properties bhi change krskte but easy hota hai Scene Builder use krna.
     }
 }
