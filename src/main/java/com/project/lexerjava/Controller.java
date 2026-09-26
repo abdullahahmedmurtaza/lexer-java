@@ -36,6 +36,9 @@ public class Controller {
 
 //    Ye IOException bhi throw krta hai.
 
+
+//    Switching methods.
+
     public void switchToAnalyzer(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Analyzer.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -63,4 +66,5 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
+
 }

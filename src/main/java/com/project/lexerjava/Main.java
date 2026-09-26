@@ -1,11 +1,14 @@
 package com.project.lexerjava;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.paint.Color;
@@ -73,5 +76,19 @@ public class Main extends Application {
         // Stage --> Scene --> Scene Graph (root)
 
 //        Scenes basically drawing surface hote graphical content ke liye to hum kaafi saari chizein like text, lines, images wagera add krskte by using "root.getChildren().add("text") etc. ", or methods ke through unki properties bhi change krskte but easy hota hai Scene Builder use krna.
+
+//        closing pe exitConfirmation ko call krna hai.
+//        Idhar stage isliye paas ki taake har baar confirmation ajaye.
+        stage.setOnCloseRequest(event -> exitConfirmation(stage));
+    }
+    //    Exit Confirmation Method
+    public void exitConfirmation(Stage stage){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit Confirmation");
+        alert.setHeaderText("You are about to exit.");
+        alert.setContentText("Are you sure you want to quit?");
+        if (alert.showAndWait().get() == ButtonType.OK){
+            stage.close();
+        }
     }
 }
