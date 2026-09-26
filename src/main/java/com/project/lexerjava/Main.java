@@ -1,7 +1,10 @@
 package com.project.lexerjava;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
@@ -23,8 +26,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 
-        Group root = new Group(); // root nodes bohat types ke hote, mein group use krrha hun (sbse common or easy).
+        //Group root = new Group(); // root nodes bohat types ke hote, mein group use krrha hun (sbse common or easy).
 
+        // Root hum FXML se load krenge so for that we will be using FXMLLoader's method '.load()'.
+        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
         //        Hum stage dikhane ke liye stage.show method use krte hain, lekin bina scene ke stage theek se behave nahin krti resizing pe. Iske liye pehle 'Scene scene = new Scene' se object create hoga
 
         Scene scene = new Scene(root, //600,//600,
@@ -45,9 +50,9 @@ public class Main extends Application {
 //        stage.setHeight(420);
         stage.setResizable(false);
 
-//        By default fullscreen mein khulei, or fullscreen se exit hone ke liya kya krna parta wo bhi define krsakte hain.
+//        By default fullscreen mein nahin khulei uske liye false rakha hai, or fullscreen se exit hone ke liya kya krna parta wo bhi define krsakte hain.
 
-        stage.setFullScreen(true);
+        stage.setFullScreen(false);
         stage.setFullScreenExitKeyCombination(KeyCombination.valueOf("ESC"));
         stage.setFullScreenExitHint("Press ESCAPE to exit fullscreen");
 
