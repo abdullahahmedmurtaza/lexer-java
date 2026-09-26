@@ -67,4 +67,12 @@ public class Controller {
         stage.show();
     }
 
+
+
+//    Exit confirmation method "stage" se related hai isliye Main.java mein ayega wo.
+
+//    File Uploading method
+
+
+
 }

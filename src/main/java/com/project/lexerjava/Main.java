@@ -79,7 +79,11 @@ public class Main extends Application {
 
 //        closing pe exitConfirmation ko call krna hai.
 //        Idhar stage isliye paas ki taake har baar confirmation ajaye.
-        stage.setOnCloseRequest(event -> exitConfirmation(stage));
+        stage.setOnCloseRequest(event -> {
+                    event.consume(); // iske bina cancel pe bhi anyway close horaha tha.
+                    exitConfirmation(stage);
+                }
+            );
     }
     //    Exit Confirmation Method
     public void exitConfirmation(Stage stage){
