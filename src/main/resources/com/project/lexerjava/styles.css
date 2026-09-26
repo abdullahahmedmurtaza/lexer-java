@@ -1,0 +1,26 @@
+.root{
+    -fx-background-color: #E0FFFF;
+    -fx-font-family: "System";
+}
+#title{
+    -fx-font-weight: bold;
+}
+#startAnalyzingButton{
+    -fx-background-color: #072566;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+#uploadFileButton{
+    -fx-background-color: #072566;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+#backButton{
+    -fx-background-color: #072566;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}

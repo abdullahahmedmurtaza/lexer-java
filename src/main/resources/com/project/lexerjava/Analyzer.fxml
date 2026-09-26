@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Text?>
 
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.lexerjava.SceneController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="712.0">
          <children>
-            <Button layoutX="14.0" layoutY="196.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="214.0" text="Upload File">
+            <Button fx:id="uploadFileButton" layoutX="14.0" layoutY="196.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="214.0" text="Upload File">
                <font>
                   <Font name="Monospaced Bold" size="20.0" />
                </font>
@@ -33,12 +33,12 @@
                   <Font name="Monospaced Regular" size="14.0" />
                </font>
             </Text>
-            <Hyperlink layoutX="14.0" layoutY="14.0" text="About" textFill="#072566">
+            <Hyperlink layoutX="14.0" layoutY="14.0" onAction="#switchToAbout" text="About" textFill="#072566">
                <font>
                   <Font name="Monospaced Regular" size="13.0" />
                </font>
             </Hyperlink>
-            <Hyperlink layoutX="74.0" layoutY="14.0" text="How to use" textFill="#072566">
+            <Hyperlink layoutX="74.0" layoutY="14.0" onAction="#switchToHowToUse" text="How to use" textFill="#072566">
                <font>
                   <Font name="Monospaced Regular" size="13.0" />
                </font>

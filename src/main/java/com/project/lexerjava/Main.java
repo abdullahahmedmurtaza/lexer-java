@@ -36,6 +36,15 @@ public class Main extends Application {
                  Color.LIGHTCYAN); // Iske constructor ko parent/root node chahiye hota hai. To upar wo bhi bana na hoga. Isme color bhi pass krskte scene ka. Isme bhi width or height bata sakte hain stage ki. --> Scene Builder ki waja se comment out krdi taake aik hi jaga se set ho.
 
 
+//        CSS add krni hai styles ke liye taake design easily match ho sakey. Humein usually same stylesheet hi multiple scenes pe use krni hoti hai isliye hum readability ke liye file path ko break krdete hain.
+//        Copy everything from the .add method onwards.
+        String css = this.getClass().getResource("styles.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+
+        // ab hum is string variable ko reuse krskte hain multiple times
+
+//        Scene Builder se id assign krke style krskte hain css mein.
 
         stage.setTitle("lexer-java"); // Title set krne ke liye
 
