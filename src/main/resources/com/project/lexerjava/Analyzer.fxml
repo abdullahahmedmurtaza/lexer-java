@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
@@ -15,11 +16,16 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="712.0">
          <children>
-            <Button fx:id="uploadFileButton" layoutX="14.0" layoutY="196.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="214.0" text="Upload File">
+            <Button fx:id="uploadFileButton" layoutX="14.0" layoutY="196.0" mnemonicParsing="false" onAction="#handleUploadFile" prefHeight="55.0" prefWidth="214.0" text="Upload File">
                <font>
                   <Font name="Monospaced Bold" size="20.0" />
                </font>
             </Button>
+            <Text fx:id="loadedFileText" fill="#072566" layoutX="14.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No file loaded" wrappingWidth="220.0">
+               <font>
+                  <Font name="Monospaced Regular" size="11.0" />
+               </font>
+            </Text>
             <Line endX="144.5" endY="-3.814697265625E-6" layoutX="102.0" layoutY="45.0" startX="-100.0" stroke="#072566" />
             <Line endX="-100.0" endY="310.39996337890625" layoutX="346.0" layoutY="140.0" startX="-100.0" startY="-140.0" stroke="#072566" />
             <Line endX="365.0" layoutX="347.0" layoutY="282.0" startX="-100.0" stroke="#072566" />
@@ -43,18 +49,19 @@
                   <Font name="Monospaced Regular" size="13.0" />
                </font>
             </Hyperlink>
-            <Hyperlink layoutX="176.0" layoutY="14.0" text="Export" textFill="#072566">
+            <Hyperlink fx:id="exportLink" layoutX="176.0" layoutY="14.0" onAction="#handleExport" text="Export" textFill="#072566">
                <font>
                   <Font name="Monospaced Regular" size="13.0" />
                </font>
             </Hyperlink>
-            <TableView layoutX="246.0" layoutY="44.0" prefHeight="237.0" prefWidth="466.0">
-              <columns>
-                <TableColumn prefWidth="144.0" text="Token" />
-                <TableColumn prefWidth="163.20001220703125" text="Lexeme" />
-                  <TableColumn prefWidth="157.5999755859375" text="Line Number" />
-              </columns>
+            <TableView fx:id="tokenTable" layoutX="246.0" layoutY="44.0" prefHeight="237.0" prefWidth="466.0">
+               <columns>
+                  <TableColumn fx:id="tokenColumn" prefWidth="144.0" text="Token" />
+                  <TableColumn fx:id="lexemeColumn" prefWidth="163.20001220703125" text="Lexeme" />
+                  <TableColumn fx:id="lineNumberColumn" prefWidth="157.5999755859375" text="Line Number" />
+               </columns>
             </TableView>
+            <TextArea fx:id="errorArea" editable="false" layoutX="246.0" layoutY="330.0" prefHeight="90.0" prefWidth="466.0" promptText="No errors yet. Upload a .c file to analyze." wrapText="true" />
          </children>
       </AnchorPane>
    </children>
