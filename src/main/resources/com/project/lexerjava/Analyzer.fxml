@@ -61,6 +61,24 @@
                   <TableColumn fx:id="lineNumberColumn" prefWidth="157.5999755859375" text="Line Number" />
                </columns>
             </TableView>
+            <TableView fx:id="symbolTable" layoutX="246.0" layoutY="44.0" managed="false" prefHeight="237.0" prefWidth="466.0" visible="false">
+               <columns>
+                  <TableColumn fx:id="symLexemeColumn" prefWidth="130.0" text="Lexeme" />
+                  <TableColumn fx:id="symTypeColumn" prefWidth="110.0" text="Type" />
+                  <TableColumn fx:id="symScopeColumn" prefWidth="110.0" text="Scope" />
+                  <TableColumn fx:id="symArraySizeColumn" prefWidth="114.0" text="Array size" />
+               </columns>
+            </TableView>
+            <Button fx:id="parserButton" layoutX="14.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleParse" prefHeight="55.0" prefWidth="214.0" text="Run Parser">
+               <font>
+                  <Font name="Monospaced Bold" size="20.0" />
+               </font>
+            </Button>
+            <Hyperlink layoutX="14.0" layoutY="365.0" onAction="#handleShowTokens" text="Show token table" textFill="#072566">
+               <font>
+                  <Font name="Monospaced Regular" size="13.0" />
+               </font>
+            </Hyperlink>
             <TextArea fx:id="errorArea" editable="false" layoutX="246.0" layoutY="330.0" prefHeight="90.0" prefWidth="466.0" promptText="No errors yet. Upload a .c file to analyze." wrapText="true" />
          </children>
       </AnchorPane>

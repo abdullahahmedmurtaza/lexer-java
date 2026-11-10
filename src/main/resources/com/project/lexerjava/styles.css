@@ -24,3 +24,9 @@
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
 }
+#parserButton {
+    -fx-background-color: #072566;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}

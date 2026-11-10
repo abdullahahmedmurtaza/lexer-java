@@ -52,10 +52,23 @@ public class Controller {
     @FXML private TableColumn<Token, Integer> lineNumberColumn;
     @FXML private TextArea errorArea;
 
+    // ---- Phase 2 (Parser) ke controls ----
+    @FXML private Button parserButton;
+    @FXML private TableView<SymbolEntry> symbolTable;
+    @FXML private TableColumn<SymbolEntry, String> symLexemeColumn;
+    @FXML private TableColumn<SymbolEntry, String> symTypeColumn;
+    @FXML private TableColumn<SymbolEntry, String> symScopeColumn;
+    @FXML private TableColumn<SymbolEntry, String> symArraySizeColumn;
+
     // Lexer engine + last results (Export button ko baad me inhi ki zaroorat hogi).
     private final LexerEngine lexerEngine = new LexerEngine();
     private List<Token> lastTokens;
     private List<LexError> lastErrors;
+
+    // Phase 2: parser lastTokens (Phase 1 ka output) par chalta hai.
+    private final SyntaxParser syntaxParser = new SyntaxParser();
+    private List<SymbolEntry> lastSymbols;      // parser chalne tak null
+    private List<SyntaxError> lastSyntaxErrors; // parser chalne tak null
 
     // FXMLLoader ye method automatically call krta hai jab saare @FXML fields inject ho chuke hon.
     // TableView ke columns ko Token model ki properties se bind karte hain idhar.
@@ -70,6 +83,14 @@ public class Controller {
         lexemeColumn.setCellValueFactory(new PropertyValueFactory<>("lexeme"));
         lineNumberColumn.setCellValueFactory(new PropertyValueFactory<>("lineNumber"));
         tokenTable.setItems(FXCollections.observableArrayList());
+
+        if (symbolTable != null) { // FXML mein symbol table aane tak crash se bachne ke liye
+            symLexemeColumn.setCellValueFactory(new PropertyValueFactory<>("lexeme"));
+            symTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+            symScopeColumn.setCellValueFactory(new PropertyValueFactory<>("scope"));
+            symArraySizeColumn.setCellValueFactory(new PropertyValueFactory<>("arraySize"));
+            symbolTable.setItems(FXCollections.observableArrayList());
+        }
     }
 
     // Method to handle the click on "Start Analyzing" button.
@@ -132,6 +153,12 @@ public class Controller {
             LexerEngine.LexResult result = lexerEngine.analyze(file);
             lastTokens = result.getTokens();
             lastErrors = result.getErrors();
+            lastSymbols = null;
+            lastSyntaxErrors = null;
+            if (symbolTable != null) {
+                symbolTable.setItems(FXCollections.observableArrayList());
+            }
+            showTokenTable();
 
             tokenTable.setItems(FXCollections.observableArrayList(lastTokens));
             loadedFileText.setText("Loaded: " + file.getName());
@@ -183,7 +210,63 @@ public class Controller {
             showAlert(Alert.AlertType.ERROR, "Export failed: " + e.getMessage());
         }
     }
+    // ---------------------------------------------------------------------
+    // Phase 2: "Run Parser" button. Lexer ke tokens (lastTokens) par SyntaxParser chalta hai,
+    // phir Symbol Table table mein aur syntax errors Results box mein dikhte hain.
+    // ---------------------------------------------------------------------
+    @FXML
+    private void handleParse(ActionEvent event) {
+        if (lastTokens == null) {
+            showAlert(Alert.AlertType.WARNING, "Upload a file first. The parser works on the tokens produced by the lexer.");
+            return;
+        }
 
+        SyntaxParser.ParseResult result = syntaxParser.parse(lastTokens);
+        lastSymbols = result.getSymbols();
+        lastSyntaxErrors = result.getErrors();
+
+        symbolTable.setItems(FXCollections.observableArrayList(lastSymbols));
+        showSymbolTable();
+
+        StringBuilder sb = new StringBuilder();
+        if (lastSyntaxErrors.isEmpty()) {
+            sb.append("Parsing completed. No syntax errors found.\n");
+        } else {
+            sb.append("Syntax errors (").append(lastSyntaxErrors.size()).append("):\n");
+            for (SyntaxError e : lastSyntaxErrors) {
+                sb.append(e.toString()).append("\n");
+            }
+        }
+        if (lastErrors != null && !lastErrors.isEmpty()) {
+            sb.append("\nLexical errors from Phase 1 (").append(lastErrors.size()).append("):\n");
+            for (LexError e : lastErrors) {
+                sb.append(e.toString()).append("\n");
+            }
+        }
+        errorArea.setText(sb.toString());
+    }
+
+    @FXML
+    private void handleShowTokens(ActionEvent event) {
+        showTokenTable();
+    }
+
+    // Token table aur Symbol table ek hi jagah par hain: ek dikhti hai, doosri chhupti hai.
+    private void showSymbolTable() {
+        tokenTable.setVisible(false);
+        tokenTable.setManaged(false);
+        symbolTable.setManaged(true);
+        symbolTable.setVisible(true);
+    }
+
+    private void showTokenTable() {
+        if (symbolTable != null) {
+            symbolTable.setVisible(false);
+            symbolTable.setManaged(false);
+        }
+        tokenTable.setManaged(true);
+        tokenTable.setVisible(true);
+    }
     private void showAlert(Alert.AlertType type, String message) {
         Alert alert = new Alert(type);
         alert.setHeaderText(null);
